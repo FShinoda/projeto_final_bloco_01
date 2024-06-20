@@ -3,11 +3,21 @@ package projeto_final_bloco_01;
 import java.io.IOException;
 import java.util.Scanner;
 
+import projeto_final_bloco_01.model.BoardGame;
+import projeto_final_bloco_01.model.CardGame;
+
 public class Menu {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
+		
+		CardGame uno = new CardGame(0, 5, 1, "UNO", "card game to lose some friends", (float) 15.69, 64);
+		uno.visualize();
+		
+		BoardGame monopoly = new BoardGame(1, 3, 2, "Monopoly", "a capitalism game", (float)200.44, (float)31.5, (float)31.5, true);
+		monopoly.visualize();
+		
 		
 		do { 
 			System.out.println("=".repeat(30));
