@@ -27,7 +27,10 @@ public class Menu {
 					+ "3 - Search product by id \n"
 					+ "4 - Update product info \n"
 					+ "5 - Delete product \n"
-					+ "6 - Exit program");
+					+ "6 - Search product by name \n"
+					+ "7 - See how many products are avaible \n"
+					+ "8 - List all products in alphabetic order \n"
+					+ "9 - Exit program");
 			System.out.println("=".repeat(30));
 			
 			try {
@@ -187,6 +190,26 @@ public class Menu {
 					keyPress();
 				}
 				case 6 -> {
+					System.out.println("Search product by name");
+					System.out.println("Type the name:");
+					name = sc.nextLine();
+					
+					prod.searchByName(name);
+					keyPress();
+				}
+				case 7 -> {
+					System.out.println("See how many products are avaible: ");
+					
+					prod.countProducts();
+					keyPress();
+				}
+				case 8 -> {
+					System.out.println("List products in alphabetical order:");
+					
+					prod.listAllAlphabetic();
+					keyPress();
+				}
+				case 9 -> {
 					System.out.println("Exit Program");
 					about();
 				}
@@ -196,7 +219,7 @@ public class Menu {
 				}
 			}
 			System.out.print("\n");
-		} while(option != 6);
+		} while(option != 9);
 		
 		sc.close();
 	}

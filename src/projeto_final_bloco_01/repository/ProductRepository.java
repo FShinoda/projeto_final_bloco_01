@@ -9,4 +9,8 @@ public interface ProductRepository {
 	public void register(Product product);
 	public void update(Product product);
 	public void delete(int id);
+	
+	public void searchByName(String name);
+	public void countProducts();
+	public void listAllAlphabetic();
 }
