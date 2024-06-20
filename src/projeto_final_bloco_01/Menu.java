@@ -1,15 +1,23 @@
 package projeto_final_bloco_01;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import projeto_final_bloco_01.controller.ProductController;
 import projeto_final_bloco_01.model.BoardGame;
 import projeto_final_bloco_01.model.CardGame;
 
 public class Menu {
 
 	public static void main(String[] args) {
+		ProductController prod = new ProductController();
 		Scanner sc = new Scanner(System.in);
+		int id, quantity, type, cardQty;
+		boolean dice, valid;
+		float price, boardWidth, boardLength;
+		String name, description;
+		
 		int option = 0;
 		
 		CardGame uno = new CardGame(0, 5, 1, "UNO", "card game to lose some friends", (float) 15.69, 64);
@@ -29,13 +37,38 @@ public class Menu {
 					+ "6 - Exit program");
 			System.out.println("=".repeat(30));
 			
-			System.out.print("Type the desired option: ");
-			option = sc.nextInt();
-			
+			try {
+				System.out.print("Type the desired option: ");
+				option = sc.nextInt();				
+			} catch(InputMismatchException e) {
+				System.out.println("\nType integer values!");
+		    	sc.nextLine();
+		    	option = 0;
+			}
+			sc.skip("\\R");
 			System.out.print("\n");
 			switch(option) {
 				case 1 -> {
 					System.out.println("Create product");
+					
+					System.out.println("Name: ");
+					name = sc.nextLine();
+					
+					do {
+						System.out.println("Type the product type (1-Card Game or 2-Board Game): ");
+						type = sc.nextInt();
+					} while (type < 1|| type > 2);
+					sc.skip("\\R");
+					
+					System.out.println("Description: ");
+					description = sc.nextLine();
+					
+					System.out.println("Quantity: ");
+					quantity = sc.nextInt();
+					
+					System.out.println("Price: ");
+					price = sc.nextFloat();
+					
 					keyPress();
 				}
 				case 2 -> {

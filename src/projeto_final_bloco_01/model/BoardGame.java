@@ -3,7 +3,7 @@ package projeto_final_bloco_01.model;
 public class BoardGame extends Product{
 	private float boardWidth;
 	private float boardLength;
-	private boolean dice; // PT-BR: possui dado?
+	private boolean dice;
 	
 	public BoardGame(int id, int quantity, int type, String name, String description, float price, float boardWidth, float boardLength, boolean dice) {
 		super(id, quantity, type, name, description, price);
