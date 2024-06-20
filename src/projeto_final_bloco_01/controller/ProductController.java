@@ -34,7 +34,7 @@ public class ProductController implements ProductRepository {
 	@Override
 	public void register(Product product) {
 		productList.add(product);
-		System.out.println("\n Product with ID " + product.getId() + " was successfully created");
+		System.out.println("\n Product with ID " + product.getId() + " was successfully created!");
 		
 	}
 

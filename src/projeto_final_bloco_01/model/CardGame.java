@@ -23,4 +23,10 @@ public class CardGame extends Product{
 	public void rules(String rules, String addOn) {
 		System.out.println("Game start with add-ons! The rules are: "+ rules + "\nThe addOn rules are: " + addOn);
 	}
+	
+	@Override
+	public void visualize() {
+		super.visualize();
+		System.out.println("Number of cards: " + this.cardQty);
+	}
 }

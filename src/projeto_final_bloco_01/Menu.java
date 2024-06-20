@@ -14,18 +14,11 @@ public class Menu {
 		ProductController prod = new ProductController();
 		Scanner sc = new Scanner(System.in);
 		int id, quantity, type, cardQty;
-		boolean dice, valid;
+		boolean dice = false, valid;
 		float price, boardWidth, boardLength;
 		String name, description;
 		
 		int option = 0;
-		
-		CardGame uno = new CardGame(0, 5, 1, "UNO", "card game to lose some friends", (float) 15.69, 64);
-		uno.visualize();
-		
-		BoardGame monopoly = new BoardGame(1, 3, 2, "Monopoly", "a capitalism game", (float)200.44, (float)31.5, (float)31.5, true);
-		monopoly.visualize();
-		
 		
 		do { 
 			System.out.println("=".repeat(30));
@@ -65,26 +58,132 @@ public class Menu {
 					
 					System.out.println("Quantity: ");
 					quantity = sc.nextInt();
+					sc.skip("\\R");
 					
 					System.out.println("Price: ");
 					price = sc.nextFloat();
+					
+					switch(type) {
+					case 1 -> {
+						System.out.println("Card Qty: ");
+						cardQty = sc.nextInt();
+						
+						prod.register(new CardGame(prod.generateId(), quantity, type, name, description, price, cardQty));
+					}
+					case 2 -> {
+						System.out.println("Board Length (cm): ");
+						boardLength = sc.nextFloat();
+						
+						System.out.println("Board Width (cm): ");
+						boardWidth = sc.nextFloat();
+						
+						do {
+							try {
+								valid = true;
+								System.out.println("Is there a dice in this board game? (true or false): ");
+								dice = sc.nextBoolean();									
+							} catch (InputMismatchException e) {
+								System.out.println("[!] Please type a boolean value (true or false)");
+								valid = false;
+								sc.next();
+							}
+						} while (valid != true);
+						
+						prod.register(new BoardGame(prod.generateId(), quantity, type, name, description, price, boardWidth, boardLength, dice));
+					}
+				}
 					
 					keyPress();
 				}
 				case 2 -> {
 					System.out.println("List all products");
+					prod.listAll();
 					keyPress();
 				}
 				case 3 -> {
 					System.out.println("Search product");
+					System.out.println("Type id to be searched: ");
+					id = sc.nextInt();
+					sc.skip("\\R");
+					
+					prod.searchById(id);
 					keyPress();
 				}
 				case 4 -> {
 					System.out.println("Update product info");
+					System.out.println("Type id of the product to be updated: ");
+					id = sc.nextInt();
+					sc.skip("\\R");
+					
+					var p = prod.searchInList(id);
+					
+					if(p != null) {
+						System.out.println("Name: ");
+						name = sc.nextLine();
+						
+						do {
+							System.out.println("Type the product type (1-Card Game or 2-Board Game): ");
+							type = sc.nextInt();
+						} while (type < 1|| type > 2);
+						sc.skip("\\R");
+						
+						System.out.println("Description: ");
+						description = sc.nextLine();
+						
+						System.out.println("Quantity: ");
+						quantity = sc.nextInt();
+						sc.skip("\\R");
+						
+						System.out.println("Price: ");
+						price = sc.nextFloat();
+						
+						switch(type) {
+							case 1 -> {
+								System.out.println("Card Qty: ");
+								cardQty = sc.nextInt();
+								sc.skip("\\R");
+								
+								prod.update(new CardGame(id, quantity, type, name, description, price, cardQty));
+							}
+							case 2 -> {
+								System.out.println("Board Length (cm): ");
+								boardLength = sc.nextFloat();
+								
+								System.out.println("Board Width (cm): ");
+								boardWidth = sc.nextFloat();
+								
+								do {
+									try {
+										valid = true;
+										System.out.println("Is there a dice in this board game? (true or false): ");
+										dice = sc.nextBoolean();									
+									} catch (InputMismatchException e) {
+										System.out.println("[!] Please type a boolean value (true or false)");
+										valid = false;
+										sc.next();
+									}
+								} while (valid != true);
+								prod.update(new BoardGame(id, quantity, type, name, description, price, boardWidth, boardLength, dice));
+							}
+						}
+					} else {
+						System.out.println("\n Product not found.");
+					}
 					keyPress();
 				}
 				case 5 -> {
 					System.out.println("Delete product");
+					System.out.println("Type id of the product to be updated: ");
+					id = sc.nextInt();
+					sc.skip("\\R");
+					
+					var p = prod.searchInList(id);
+					
+					if(p != null) {
+						prod.delete(id);
+					} else {
+						System.out.println("\n Product not found.");
+					}
 					keyPress();
 				}
 				case 6 -> {
